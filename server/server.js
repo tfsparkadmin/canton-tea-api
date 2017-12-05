@@ -46,10 +46,9 @@ app.post('/credit-order', function(request, response) {
         }
     }
 
-    let data = request.body.payload;
-    for(let i = 0; i < data.length; i++)
+    for(let i = 0; i < request.body.payload.length; i++)
     {
-        payload.order.line_items.push({ variant_id: data[i].variant_id, quantity: data[i].quantity });
+        payload.order.line_items.push({ variant_id: request.body.payload[i].variant_id, quantity: request.body.payload[i].quantity });
     };
 
 
