@@ -23,14 +23,15 @@ app.get('/credit-order', function(request, response) {
 });
 
 app.post('/credit-order', function(request, response) {
-    // axios.headers.post['Content-Type'] = 'application/json';
-    axios.post(api.url, api.payload, {headers: {
-                "Content-Type": "application/json"}
-            }).then((result)=> {
-        response.send('Order placed. Order name is ' + result.data.order.name);
-    }).catch((err)=> {
-        response.send('Nu merge ' + err);
-    });
+
+    response.json(request);
+    // axios.post(api.url, api.payload, {headers: {
+    //             "Content-Type": "application/json"}
+    //         }).then((result)=> {
+    //     response.send('Order placed. Order name is ' + result.data.order.name);
+    // }).catch((err)=> {
+    //     response.send('Nu merge ' + err);
+    // });
 
 });
 
