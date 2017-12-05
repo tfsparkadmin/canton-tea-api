@@ -58,7 +58,7 @@ app.post('/credit-order', function(request, response) {
             }).then((result)=> {
         response.send('Order placed. Order name is ' + result.data.order.name);
     }).catch((err)=> {
-        response.send('Nu merge ' + err + request.body.payload);
+        response.send('Nu merge ' + err + JSON.stringify(request.body.payload[0]));
     });
 
 });
