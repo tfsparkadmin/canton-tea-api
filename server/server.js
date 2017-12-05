@@ -10,18 +10,15 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
 
 // POST create new todo
-app.get('/run', function(request, response) {
+app.get('/credit-order', function(request, response) {
     // axios.headers.post['Content-Type'] = 'application/json';
     axios.post(api.url, api.payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-        console.log(result.data);
-        response.send('Merge');
+        response.send('Order placed. Order name is ' + result.data.order.name);
     }).catch((err)=> {
-        console.log(err);
-        response.send('Nu merge ' + process.env.SHOPIFY_SHOP_NAME);
+        response.send('Nu merge ' + err);
     });
-    console.log(process.env.SHOPIFY_API_KEY);
 
 });
 
