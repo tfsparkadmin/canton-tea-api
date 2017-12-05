@@ -25,7 +25,29 @@ app.get('/credit-order', function(request, response) {
 
 app.post('/credit-order', function(request, response) {
 
-    axios.post(api.url, api.payload, {headers: {
+    // this is the payload
+    
+    let payload = {
+        "order":
+        {
+            "customer":
+            {
+              "id": 207119551,
+              "name": 'Mihai Blebea',
+              "email": "mblebea@tfspark.com"
+            },
+            "financial_status": "pending",
+            "line_items":
+            [
+                {
+                    "variant_id": 5910473146407,
+                    "quantity": 1
+                }
+            ]
+        }
+    }
+
+    axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
         response.send('Order placed by ' + request.body.payload + '. Order name is ' + result.data.order.name);
