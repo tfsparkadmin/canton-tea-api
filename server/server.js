@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.get('/', function(request, response) {
     api.createOrder();
     console.log(process.env.SHOPIFY_SHOP_NAME);
-    response.send('Merge ' + process.env.SHOPIFY_SHOP_NAME);
+    response.send('Merge ' + json_encode(api.createOrder()));
 
 });
 
