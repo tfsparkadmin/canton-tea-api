@@ -24,7 +24,7 @@ app.get('/credit-order', function(request, response) {
 
 app.post('/credit-order', function(request, response) {
 
-    response.json(request);
+    response.send(JSON.stringify(request));
     // axios.post(api.url, api.payload, {headers: {
     //             "Content-Type": "application/json"}
     //         }).then((result)=> {
