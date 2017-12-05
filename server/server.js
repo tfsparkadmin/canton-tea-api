@@ -7,6 +7,7 @@ var app = express();
 
 app.set('port', (process.env.PORT || 3000));
 // Setup middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // POST create new todo
