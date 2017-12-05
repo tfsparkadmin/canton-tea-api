@@ -2,10 +2,10 @@
   "name": "canton-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "test",
-    "start": "npm run server/server.js"
+    "start": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
