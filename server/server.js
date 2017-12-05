@@ -26,26 +26,31 @@ app.get('/credit-order', function(request, response) {
 app.post('/credit-order', function(request, response) {
 
     // this is the payload
-    
     let payload = {
-        "order":
+        order:
         {
-            "customer":
+            customer:
             {
-              "id": 207119551,
-              "name": 'Mihai Blebea',
-              "email": "mblebea@tfspark.com"
+              id: 207119551,
+              name: 'Mihai Blebea',
+              email: "mblebea@tfspark.com"
             },
-            "financial_status": "pending",
-            "line_items":
+            financial_status: "pending",
+            line_items:
             [
                 {
-                    "variant_id": 5910473146407,
-                    "quantity": 1
+                    variant_id: 5910473146407,
+                    quantity: 1
                 }
             ]
         }
     }
+
+    let data = JSON.parse(request.body.payload);
+    for(let i = 0; i < data.length; i++)
+    {
+        payload.order.line_items.push({ variant_id: data[i].variant_id, quantity: data[i].quantity });
+    };
 
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
