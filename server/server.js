@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.get('/', function(request, response) {
     // requests.createOrder();
     console.log(process.env.SHOPIFY_SHOP_NAME);
-    response.send('Merge');
+    response.send('Merge ' + process.env.SHOPIFY_SHOP_NAME);
 
 });
 
