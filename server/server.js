@@ -52,15 +52,15 @@ app.post('/credit-order', function(request, response) {
         payload.order.line_items.push({ variant_id: data[i].variant_id, quantity: data[i].quantity });
     };
 
-    response.send(request.body.payload);
 
-    // axios.post(api.url, payload, {headers: {
-    //             "Content-Type": "application/json"}
-    //         }).then((result)=> {
-    //     response.send('Order placed by ' + request.body.payload + '. Order name is ' + result.data.order.name);
-    // }).catch((err)=> {
-    //     response.send('Nu merge ' + err);
-    // });
+
+    axios.post(api.url, payload, {headers: {
+                "Content-Type": "application/json"}
+            }).then((result)=> {
+        response.send('Order placed. Order name is ' + result.data.order.name);
+    }).catch((err)=> {
+        response.send('Nu merge ' + err);
+    });
 
 });
 
