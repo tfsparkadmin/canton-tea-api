@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const request = require('./request.js');
+const requests = require('./requests.js');
 
 var app = express();
 
@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 // POST create new todo
 app.get('/', function(request, response) {
-    request.createOrder();
+    requests.createOrder();
     console.log(process.env.SHOPIFY_SHOP_NAME);
     response.send('Merge');
 
