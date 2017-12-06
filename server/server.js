@@ -53,7 +53,7 @@ app.post('/credit-order', function(request, response) {
                 "Content-Type": "application/json"}
             }).then((result)=> {
 
-        response.send('Order placed. Order name is ' + result.data.order.name);
+        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.name);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
     });
