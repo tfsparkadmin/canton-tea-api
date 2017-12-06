@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "test": "test",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "watch": "nodemon server/server.js"
   },
   "author": "",
   "license": "ISC",

@@ -36,27 +36,34 @@ app.post('/credit-order', function(request, response) {
               email: "mblebea@tfspark.com"
             },
             financial_status: "pending",
-            line_items:
-            [
-                {
-                    variant_id: 5910473146407,
-                    quantity: 1
-                }
-            ]
+            line_items:[]
         }
     }
 
 
+    let data = request.body;
+    let i = 0;
+    while (data["line_" + i]) {
+        let item = data["line_" + i].split('/');
+        payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
+        i++;
+    }
+
     // for(let i = 0; i < request.body.length; i++)
     // {
-    //     let item = request.body[i].split('/');
+    //     let item = data["line_" + i].split('/');
+    //
     //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
     // };
+
+    console.log(JSON.stringify(payload));
+
 
 
     axios.post(api.url, api.payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
+
         response.send('Order placed. Order name is ' + result.data.order.name);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
