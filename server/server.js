@@ -47,13 +47,13 @@ app.post('/credit-order', function(request, response) {
     }
 
 
-    for(let i = 0; i < request.body.length; i++)
-    {
-        let item = request.body[i].split('/');
-        payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-    };
+    // for(let i = 0; i < request.body.length; i++)
+    // {
+    //     let item = request.body[i].split('/');
+    //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
+    // };
 
-    request.send(request.body[i]);
+    request.send(JSON.stringify(request.body));
 
     // axios.post(api.url, payload, {headers: {
     //             "Content-Type": "application/json"}
