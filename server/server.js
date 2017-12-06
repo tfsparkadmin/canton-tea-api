@@ -31,9 +31,9 @@ app.post('/credit-order', function(request, response) {
         {
             customer:
             {
-              id: 207119551,
-              name: 'Mihai Blebea',
-              email: "mblebea@tfspark.com"
+              id: request.body.id,
+              name: request.body.name,
+              email: request.body.email
             },
             financial_status: "pending",
             line_items:[]
