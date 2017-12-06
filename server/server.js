@@ -46,20 +46,21 @@ app.post('/credit-order', function(request, response) {
         }
     }
 
+
     for(let i = 0; i < request.body.payload.length; i++)
     {
         payload.order.line_items.push({ variant_id: request.body.payload[i].variant_id, quantity: request.body.payload[i].quantity });
     };
 
+    response.send(request.body.payload);
 
-
-    axios.post(api.url, api.payload, {headers: {
-                "Content-Type": "application/json"}
-            }).then((result)=> {
-        response.send('Order placed. Order name is ' + result.data.order.name);
-    }).catch((err)=> {
-        response.send('Nu merge ' + err);
-    });
+    // axios.post(api.url, api.payload, {headers: {
+    //             "Content-Type": "application/json"}
+    //         }).then((result)=> {
+    //     response.send('Order placed. Order name is ' + result.data.order.name);
+    // }).catch((err)=> {
+    //     response.send('Nu merge ' + err);
+    // });
 
 });
 
