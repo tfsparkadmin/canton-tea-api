@@ -35,7 +35,7 @@ app.post('/credit-order', function(request, response) {
               name: request.body.name,
               email: request.body.email
             },
-            financial_status: "pending",
+            financial_status: "paid",
             line_items:[]
         }
     }
