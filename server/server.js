@@ -35,7 +35,7 @@ app.post('/credit-order', function(request, response) {
               name: request.body.name,
               email: request.body.email
             },
-            financial_status: "paid",
+            financial_status: "pending",
             line_items:[]
         }
     }
@@ -52,8 +52,8 @@ app.post('/credit-order', function(request, response) {
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-
-        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.name);
+        response.redirect('https://canton-tea.myshopify.com/pages/trade-orders-thankyou');
+        // response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.name);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
     });
