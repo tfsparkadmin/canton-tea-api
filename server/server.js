@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-const api = require('./api.js');
 
 var app = express();
 
@@ -28,7 +27,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-// POST create new todo
+// GET create new order
 app.get('/credit-order', function(request, response) {
     // axios.headers.post['Content-Type'] = 'application/json';
     axios.post(api.url, api.payload, { headers: {
@@ -41,48 +40,21 @@ app.get('/credit-order', function(request, response) {
 
 });
 
+// POST create new order
 app.post('/credit-order', function(request, response) {
 
-    // this is the payload
-    // let payload = {
-    //     order:
-    //     {
-    //         customer:
-    //         {
-    //           id: request.body.id,
-    //           name: request.body.name,
-    //           email: request.body.email
-    //         },
-    //         financial_status: "pending",
-    //         line_items:[]
-    //     }
-    // }
-
-
-    // let data = request.body;
-    // // let shop = data['shop'];
-    // let items = data['items'];
-    // // let i = 0;
-    // // while (items) {
-    // //     let item = data["line_" + i].split('/');
-    // //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-    // //     i++;
-    // // }
-    // for(let i = 0; i < items.length; i++)
-    // {
-    //     let item = items[i].split('/');
-    //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-    // }
-
+    const url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com/admin/orders.json';
     let payload = request.body.payload;
-    // console.log(JSON.parse(payload));
-    axios.post(api.url, JSON.parse(payload), {headers: {
+    let devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com/admin/orders.json';
+    axios.post(url, JSON.parse(payload), {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-                response.setHeader('Content-Type', 'application/json');
-                response.send(JSON.stringify({ response: 'ok' }))
+                console.log(result);
+                // response.setHeader('Content-Type', 'application/json');
+                // response.send(JSON.stringify({ response: 'ok' }))
                 // response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
             }).catch((err)=> {
+                console.log(err);
                 response.send('Nu merge ' + err);
             });
 
