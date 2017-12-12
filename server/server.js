@@ -74,10 +74,9 @@ app.post('/credit-order', function(request, response) {
     //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
     // }
 
-    payload = request.body.payload;
-    
-    console.log(payload);
-    axios.post(api.url, payload, {headers: {
+    let payload = request.body.payload;
+    console.log(JSON.parse(payload));
+    axios.post(api.url, JSON.parse(payload), {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
         response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
