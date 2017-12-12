@@ -60,12 +60,18 @@ app.post('/credit-order', function(request, response) {
 
 
     let data = request.body;
-    let shop = data['shop'];
-    let i = 0;
-    while (data["line_" + i]) {
-        let item = data["line_" + i].split('/');
+    // let shop = data['shop'];
+    let items = data['items'];
+    // let i = 0;
+    // while (items) {
+    //     let item = data["line_" + i].split('/');
+    //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
+    //     i++;
+    // }
+    for(let i = 0; i < items.length; i++)
+    {
+        let item = items[i].split('/');
         payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-        i++;
     }
 
     axios.post(api.url, payload, {headers: {
