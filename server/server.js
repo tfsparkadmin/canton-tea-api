@@ -52,7 +52,7 @@ app.post('/credit-order', function(request, response) {
             }).then((result)=> {
                 console.log(result);
                 // response.setHeader('Content-Type', 'application/json');
-                response.send(JSON.stringify({ response: 'ok' }))
+                response.send(JSON.stringify({ response: 'ok', token: result.data.order.token }))
             }).catch((err)=> {
                 console.log(err);
                 response.send('Nu merge ' + err);
