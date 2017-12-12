@@ -53,8 +53,7 @@ app.post('/credit-order', function(request, response) {
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-        // response.redirect('https://canton-tea.myshopify.com/pages/trade-orders-thankyou');
-        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.token + ' ' + shop);
+        response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
     });
