@@ -50,8 +50,8 @@ app.post('/credit-order', function(request, response) {
                 "Content-Type": "application/json"}
             }).then((result)=> {
                 console.log(result);
-                // response.setHeader('Content-Type', 'application/json');
-                // response.send(JSON.stringify({ response: 'ok' }))
+                response.setHeader('Content-Type', 'application/json');
+                response.send(JSON.stringify({ response: 'ok' }))
                 // response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
             }).catch((err)=> {
                 console.log(err);
