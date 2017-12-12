@@ -75,14 +75,16 @@ app.post('/credit-order', function(request, response) {
     // }
 
     let payload = request.body.payload;
-    console.log(JSON.parse(payload));
+    // console.log(JSON.parse(payload));
     axios.post(api.url, JSON.parse(payload), {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-        response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
-    }).catch((err)=> {
-        response.send('Nu merge ' + err);
-    });
+                response.setHeader('Content-Type', 'application/json');
+                response.send(JSON.stringify({ response: 'ok' }))
+                // response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
+            }).catch((err)=> {
+                response.send('Nu merge ' + err);
+            });
 
 });
 
