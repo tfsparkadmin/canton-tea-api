@@ -44,36 +44,37 @@ app.get('/credit-order', function(request, response) {
 app.post('/credit-order', function(request, response) {
 
     // this is the payload
-    let payload = {
-        order:
-        {
-            customer:
-            {
-              id: request.body.id,
-              name: request.body.name,
-              email: request.body.email
-            },
-            financial_status: "pending",
-            line_items:[]
-        }
-    }
-
-
-    let data = request.body;
-    // let shop = data['shop'];
-    let items = data['items'];
-    // let i = 0;
-    // while (items) {
-    //     let item = data["line_" + i].split('/');
-    //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-    //     i++;
+    // let payload = {
+    //     order:
+    //     {
+    //         customer:
+    //         {
+    //           id: request.body.id,
+    //           name: request.body.name,
+    //           email: request.body.email
+    //         },
+    //         financial_status: "pending",
+    //         line_items:[]
+    //     }
     // }
-    for(let i = 0; i < items.length; i++)
-    {
-        let item = items[i].split('/');
-        payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
-    }
 
+
+    // let data = request.body;
+    // // let shop = data['shop'];
+    // let items = data['items'];
+    // // let i = 0;
+    // // while (items) {
+    // //     let item = data["line_" + i].split('/');
+    // //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
+    // //     i++;
+    // // }
+    // for(let i = 0; i < items.length; i++)
+    // {
+    //     let item = items[i].split('/');
+    //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
+    // }
+
+    let payload = request.body;
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
