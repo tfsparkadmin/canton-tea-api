@@ -74,7 +74,9 @@ app.post('/credit-order', function(request, response) {
     //     payload.order.line_items.push({ variant_id: item[0], quantity: item[1] });
     // }
 
-    let payload = request.body;
+    payload = request.body.payload;
+    
+    console.log(payload);
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
