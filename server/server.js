@@ -42,6 +42,7 @@ app.post('/credit-order', function(request, response) {
 
 
     let data = request.body;
+    let shop = data['shop'];
     let i = 0;
     while (data["line_" + i]) {
         let item = data["line_" + i].split('/');
@@ -53,7 +54,7 @@ app.post('/credit-order', function(request, response) {
                 "Content-Type": "application/json"}
             }).then((result)=> {
         // response.redirect('https://canton-tea.myshopify.com/pages/trade-orders-thankyou');
-        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.token);
+        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.token + ' ' + shop);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
     });
