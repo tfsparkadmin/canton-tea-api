@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 // POST create new todo
 app.get('/credit-order', function(request, response) {
     // axios.headers.post['Content-Type'] = 'application/json';
-    axios.post(api.url, api.payload, {headers: {
+    axios.post(api.url, api.payload, { headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
         response.send('Order placed. Order name is ' + result.data.order.name);
@@ -52,8 +52,8 @@ app.post('/credit-order', function(request, response) {
     axios.post(api.url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
-        response.redirect('https://canton-tea.myshopify.com/pages/trade-orders-thankyou');
-        // response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.name);
+        // response.redirect('https://canton-tea.myshopify.com/pages/trade-orders-thankyou');
+        response.send('Order placed by' + request.body.name + '. Order name is ' + result.data.order.token);
     }).catch((err)=> {
         response.send('Nu merge ' + err);
     });
