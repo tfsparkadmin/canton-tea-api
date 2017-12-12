@@ -49,23 +49,12 @@ app.post('/credit-order', function(request, response) {
 
 
     let devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com/admin/orders.json';
-    axios.post(url, payload, {headers: {
+    axios.post(devUrl, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
                 console.log(result);
-                // response.setHeader('Content-Type', 'application/json');
-                // response.send(JSON.stringify({ response: 'ok', token: result.data.order.token }))
-                let id = result.data.order.id;
-                let closeUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com//admin/orders/' + id + '/close.json';
-                axios.post(closeUrl).then((response)=> {
-                    let redirect = response.data.order.order_status_url;
-                    response.writeHead(302, {
-                      'Location': redirect
-                    });
-                    response.end();
-                }).catch((err)=> {
-                    console.log(err);
-                })
+                response.setHeader('Content-Type', 'application/json');
+                response.send(JSON.stringify({ response: 'ok', token: result.data.order.token, redirect: result.data.order.order_status_url}));
             }).catch((err)=> {
                 console.log(err);
                 response.send('Nu merge ' + err);
