@@ -43,20 +43,21 @@ app.get('/credit-order', function(request, response) {
 // POST create new order
 app.post('/credit-order', function(request, response) {
 
-    let url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com/admin/orders.json';
-    let payload = request.body.payload;
-    let devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com/admin/orders.json';
-    axios.post(url, JSON.parse(payload), {headers: {
-                "Content-Type": "application/json"}
-            }).then((result)=> {
-                console.log(result);
-                // response.setHeader('Content-Type', 'application/json');
-                response.send(JSON.stringify({ response: 'ok' }))
-                // response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
-            }).catch((err)=> {
-                console.log(err);
-                response.send('Nu merge ' + err);
-            });
+    return request.body;
+    // let url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com/admin/orders.json';
+    // let payload = request.body.payload;
+    // let devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com/admin/orders.json';
+    // axios.post(url, JSON.parse(payload), {headers: {
+    //             "Content-Type": "application/json"}
+    //         }).then((result)=> {
+    //             console.log(result);
+    //             // response.setHeader('Content-Type', 'application/json');
+    //             response.send(JSON.stringify({ response: 'ok' }))
+    //             // response.redirect('https://checkout.shopify.com/' + shop + '/orders/' + result.data.order.token);
+    //         }).catch((err)=> {
+    //             console.log(err);
+    //             response.send('Nu merge ' + err);
+    //         });
 });
 
 app.listen(app.get('port'), function() {
