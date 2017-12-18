@@ -31,7 +31,7 @@ const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHO
 
 app.post('/shop', function(request, response) {
     axios.get(baseUrl + '/admin/shop.json').then((result)=> {
-        response.send('ok');
+        response.send(JSON.stringify(result.data.shop));
       }).catch((err)=> {
       	console.log(err);
       });
