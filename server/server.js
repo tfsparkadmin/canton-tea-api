@@ -96,7 +96,7 @@ app.post('/credit-order', function(request, response) {
 
     let id = request.body.id;
 
-    axios.post(url, payload, {headers: {
+    axios.post(url + '/admin/orders.json', payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
                 console.log(result);
