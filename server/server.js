@@ -32,10 +32,18 @@ const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHO
 app.post('/shop', function(request, response) {
     axios.get(baseUrl + '/admin/shop.json').then((result)=> {
         response.send(JSON.stringify(result.data.shop));
-      }).catch((err)=> {
+    }).catch((err)=> {
       	console.log(err);
-      });
+    });
 });
+
+app.post('/products', function(request, response) {
+    axios.get(baseUrl + '/admin/collections.json').then((result)=> {
+        response.send(JSON.stringify(result.data.collections));
+    }).catch((err)=> {
+        console.log(err)
+    })
+})
 
 // POST create new order
 app.post('/credit-order', function(request, response) {
