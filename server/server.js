@@ -27,12 +27,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-let baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
+const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 
 app.post('/shop', function(request, response) {
-    axios.get(baseUrl + '/admin/shop.json').then((response)=> {
-        response.setHeader('Content-Type', 'application/json');
-        response.send(JSON.stringify(response.data.shop));
+    axios.get(baseUrl + '/admin/shop.json').then((result)=> {
+        response.send('ok');
       }).catch((err)=> {
       	console.log(err);
       });
