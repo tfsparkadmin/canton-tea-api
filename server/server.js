@@ -31,11 +31,8 @@ let baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPI
 
 app.get('/shop', function(request, response) {
     axios.get(baseUrl + '/admin/shop.json').then((response)=> {
-        if(response.status == 200)
-        {
-            response.setHeader('Content-Type', 'application/json');
-            response.send(JSON.stringify(response.data.shop));
-        }
+        response.setHeader('Content-Type', 'application/json');
+        response.send(JSON.stringify(response.data.shop));
       }).catch((err)=> {
       	console.log(err);
       });
