@@ -88,9 +88,15 @@ app.post('/cart', function(request, response) {
 app.post('/credit-order', function(request, response) {
 
     let payload = request.body;
-    let url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com/admin/orders.json';
+    let url = devUrl;
+    if(app.get('port') !== 3000)
+    {
+        url = baseUrl;
+    }
 
-    axios.post(devUrl, payload, {headers: {
+    let id = request.body.id;
+
+    axios.post(url, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
                 console.log(result);
