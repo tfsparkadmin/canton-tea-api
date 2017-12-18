@@ -44,7 +44,7 @@ app.post('/shop', function(request, response) {
     });
 });
 
-app.post('/products', function(request, response) {
+app.post('/collections', function(request, response) {
     let url = devUrl;
     if(app.get('port') !== 3000)
     {
@@ -52,6 +52,22 @@ app.post('/products', function(request, response) {
     }
     axios.get(url + '/admin/custom_collections.json').then((result)=> {
         response.send(JSON.stringify(result.data.custom_collections));
+    }).catch((err)=> {
+        console.log(err)
+        response.send(err)
+    })
+});
+
+app.post('/products', function(request, response) {
+    let url = devUrl;
+    if(app.get('port') !== 3000)
+    {
+        url = baseUrl;
+    }
+
+    let id = request.body.id;
+    axios.get(url + '/admin/products.json?collection_id=' + id).then((result)=> {
+        response.send(result.data.products);
     }).catch((err)=> {
         console.log(err)
         response.send(err)
