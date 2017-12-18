@@ -27,17 +27,18 @@ app.use(function (req, res, next) {
     next();
 });
 
-// GET create new order
-app.get('/credit-order', function(request, response) {
-    // axios.headers.post['Content-Type'] = 'application/json';
-    axios.post(api.url, api.payload, { headers: {
-                "Content-Type": "application/json"}
-            }).then((result)=> {
-        response.send('Order placed. Order name is ' + result.data.order.name);
-    }).catch((err)=> {
-        response.send('Nu merge ' + err);
-    });
+let baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 
+app.get('/shop', function(request, response) {
+    axios.get(baseUrl + '/admin/shop.json').then((response)=> {
+        if(response.status == 200)
+        {
+            response.setHeader('Content-Type', 'application/json');
+            response.send(JSON.stringify(response.data.shop));
+        }
+      }).catch((err)=> {
+      	console.log(err);
+      });
 });
 
 // POST create new order
@@ -60,6 +61,8 @@ app.post('/credit-order', function(request, response) {
                 response.send('Nu merge ' + err);
             });
 });
+
+
 
 app.listen(app.get('port'), function() {
     console.log('Started server on port', app.get('port'));
