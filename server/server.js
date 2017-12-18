@@ -30,7 +30,9 @@ app.use(function (req, res, next) {
 let baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 
 app.get('/shop', function(request, response) {
-    axios.get(baseUrl + '/admin/shop.json').then((response)=> {
+    axios.get(baseUrl + '/admin/shop.json', {headers: {
+                "Content-Type": "application/json"}
+            }).then((response)=> {
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify(response.data.shop));
       }).catch((err)=> {
