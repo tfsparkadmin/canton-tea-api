@@ -28,9 +28,16 @@ app.use(function (req, res, next) {
 });
 
 const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
+const devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com';
+const plainUrl = 'https://canton-tea.myshopify.com';
 
 app.post('/shop', function(request, response) {
-    axios.get(baseUrl + '/admin/shop.json').then((result)=> {
+    let url = devUrl;
+    if(app.get('port') !== 3000)
+    {
+        url = baseUrl;
+    }
+    axios.get(url + '/admin/shop.json').then((result)=> {
         response.send(JSON.stringify(result.data.shop));
     }).catch((err)=> {
       	console.log(err);
@@ -38,23 +45,35 @@ app.post('/shop', function(request, response) {
 });
 
 app.post('/products', function(request, response) {
-    axios.get(baseUrl + '/admin/collections.json').then((bar)=> {
-        // response.send(JSON.stringify(result.data.collections));
+    let url = devUrl;
+    if(app.get('port') !== 3000)
+    {
+        url = baseUrl;
+    }
+    axios.get(url + '/admin/custom_collections.json').then((result)=> {
+        response.send(JSON.stringify(result.data.custom_collections));
+    }).catch((err)=> {
+        console.log(err)
+        response.send(err)
+    })
+});
+
+app.post('/cart', function(request, response) {
+    axios.get(devUrl + '/cart.js').then((result)=> {
+        console.log(result.data)
         response.send('ok');
     }).catch((err)=> {
         console.log(err)
+        response.send(err)
     })
-})
+});
 
 // POST create new order
 app.post('/credit-order', function(request, response) {
 
     let payload = request.body;
-
     let url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com/admin/orders.json';
 
-
-    let devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com/admin/orders.json';
     axios.post(devUrl, payload, {headers: {
                 "Content-Type": "application/json"}
             }).then((result)=> {
