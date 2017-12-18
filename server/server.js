@@ -38,8 +38,9 @@ app.post('/shop', function(request, response) {
 });
 
 app.post('/products', function(request, response) {
-    axios.get(baseUrl + '/admin/collections.json').then((result)=> {
-        response.send(JSON.stringify(result.data.collections));
+    axios.get(baseUrl + '/admin/collections.json').then((bar)=> {
+        // response.send(JSON.stringify(result.data.collections));
+        response.send('ok');
     }).catch((err)=> {
         console.log(err)
     })
