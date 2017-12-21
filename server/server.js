@@ -50,7 +50,7 @@ app.post('/collections', function(request, response) {
     {
         url = baseUrl;
     }
-    axios.get(url + '/admin/custom_collections.json').then((result)=> {
+    axios.get(url + '/admin/collection_listings.json').then((result)=> {
         response.send(JSON.stringify(result.data.custom_collections));
     }).catch((err)=> {
         console.log(err)
