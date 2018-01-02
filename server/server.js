@@ -52,11 +52,26 @@ app.post('/collections', function(request, response) {
     }
 
     axios.get(url + '/admin/custom_collections.json').then((result)=> {
-        response.send(JSON.stringify(result.data.custom_collections));
+        // response.send(JSON.stringify(result.data.custom_collections));
+        let customCol = result.data.custom_collections;
+        axios.get(url + '/admin/smart_collections.json').then((res)=> {
+            let smartCol = res.data.smart_collections;
+            for(let i = 0; i < customCol.length; i++)
+            {
+                smartCol.push(customCol[i]);
+            }
+
+            response.send(JSON.stringify(smartCol));
+        }).catch((err)=> {
+            console.log(err)
+            response.send(err)
+        })
     }).catch((err)=> {
         console.log(err)
         response.send(err)
     })
+
+
 });
 
 app.post('/products', function(request, response) {
