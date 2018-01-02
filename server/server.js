@@ -50,6 +50,7 @@ app.post('/collections', function(request, response) {
     {
         url = baseUrl;
     }
+
     axios.get(url + '/admin/custom_collections.json').then((result)=> {
         response.send(JSON.stringify(result.data.custom_collections));
     }).catch((err)=> {
@@ -93,7 +94,7 @@ app.post('/credit-order', function(request, response) {
     {
         url = baseUrl;
     }
-
+    
     let id = request.body.id;
 
     axios.post(url + '/admin/orders.json', payload, {headers: {
