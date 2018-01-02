@@ -14,7 +14,7 @@
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "nodemon": "^1.13.3",
+    "nodemon": "^1.14.7",
     "shopify-buy": "^1.0.2"
   }
 }
