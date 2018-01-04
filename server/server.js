@@ -136,9 +136,9 @@ app.post('/credit-order', function(request, response) {
 
 app.post('/shipping-methods', function(request, response) {
     let payload = request.body;
-    let address = payload.customer.default_address;
+    let address = payload.address;
     let cart    = payload.cart;
-
+    response.send(JSON.stringify(payload));
     let countryCode = address.country_code;
 
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
