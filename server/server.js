@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-const shopifyBuy = require('shopify-buy');
+const Shopify = require('shopify-api-node');
+
 var app = express();
 
 app.set('port', (process.env.PORT || 3000));
@@ -31,6 +32,14 @@ app.use(function (req, res, next) {
 const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 const devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com';
 const plainUrl = 'https://canton-tea.myshopify.com';
+
+
+const shopify = new Shopify({
+    shopName: 'canton-tea',
+    apiKey: '1ec55068e218efe4d060390e1e065ea8',
+    password: '66a5ab8b4fffeaba915fcb06587fac03'
+});
+
 
 app.post('/shop', function(request, response) {
     let url = devUrl;
@@ -125,7 +134,70 @@ app.post('/credit-order', function(request, response) {
             });
 });
 
+app.post('/shipping-methods', function(request, response) {
+    let payload = request.body;
+    let address = payload.customer.default_address;
+    let cart    = payload.cart;
 
+    let countryCode = address.country_code;
+
+    shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
+        let result = [];
+        for(let i = 0; i < zones.length; i++)
+        {
+            for(let j = 0; j < zones[i].countries.length; j++)
+            {
+                if(zones[i].countries[j].code == countryCode)
+                {
+                    // Get shipping zone by weight
+                    let weight = zones[i].weight_based_shipping_rates;
+                    for(let k = 0; k < weight.length; k++)
+                    {
+                        if(weight[k].weight_low < cart.total_weight && weight[k].weight_high > cart.total_weight)
+                        {
+                            console.log('this is the correct weight', weight)
+                            result.push(weight[k]);
+                        }
+                    }
+
+                    // Get shipping zone by price
+                    let price = zones[i].price_based_shipping_rates;
+                    for(let h = 0; h < price.length; h++)
+                    {
+                        if(parseInt(price[h].min_order_subtotal) < parseInt(cart.total_price))
+                        {
+                            result.push(price[h]);
+                        }
+                    }
+                }
+            }
+        }
+        response.send(JSON.stringify(result));
+    }).catch((err)=> {
+        response.send(JSON.stringify(err));
+    });
+
+    // response.send(JSON.stringify(payload));
+});
+
+
+
+
+app.get('/get-shipping-zones', function(request, response) {
+    shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
+        response.send(JSON.stringify(zones));
+    }).catch((err)=> {
+        response.send(JSON.stringify(err));
+    });
+})
+
+app.get('/create-checkout', function(request, response) {
+    shopify.checkout.list({ limit: 5 }).then((result)=> {
+        response.send(JSON.stringify(result));
+    }).catch((err)=> {
+        response.send(JSON.stringify(err));
+    });
+})
 
 app.listen(app.get('port'), function() {
     console.log('Started server on port', app.get('port'));

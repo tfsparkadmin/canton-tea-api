@@ -15,6 +15,8 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "nodemon": "^1.14.7",
-    "shopify-buy": "^1.0.2"
+    "shopify-api-node": "^2.10.0",
+    "shopify-buy": "^1.0.2",
+    "shopify-node-api": "^1.8.0"
   }
 }
