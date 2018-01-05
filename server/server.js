@@ -138,7 +138,7 @@ app.post('/shipping-methods', function(request, response) {
     let payload = request.body;
     let address = payload.address;
     let cart    = payload.cart;
-    
+
     let countryCode = address.country_code;
 
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
@@ -164,7 +164,7 @@ app.post('/shipping-methods', function(request, response) {
                     let price = zones[i].price_based_shipping_rates;
                     for(let h = 0; h < price.length; h++)
                     {
-                        if(parseInt(price[h].min_order_subtotal) < parseInt(cart.total_price))
+                        if(parseInt(price[h].min_order_subtotal) < parseInt(cart.total_price) && (parseInt(price[h].max_order_subtotal) > parseInt(cart.total_price) || price[h].max_order_subtotal == null))
                         {
                             result.push(price[h]);
                         }
