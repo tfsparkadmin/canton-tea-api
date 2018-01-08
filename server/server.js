@@ -120,11 +120,9 @@ app.post('/credit-order', function(request, response) {
         url = baseUrl;
     }
 
-    let id = request.body.id;
-
-    axios.post(url + '/admin/orders.json', payload, {headers: {
-                "Content-Type": "application/json"}
-            }).then((result)=> {
+    // let id = request.body.id;
+    console.log(payload)
+    axios.post(url + '/admin/orders.json', payload).then((result)=> {
                 console.log(result);
                 response.setHeader('Content-Type', 'application/json');
                 response.send(JSON.stringify({ response: 'ok', token: result.data.order.token, redirect: result.data.order.order_status_url}));
@@ -153,7 +151,7 @@ app.post('/shipping-methods', function(request, response) {
                     let weight = zones[i].weight_based_shipping_rates;
                     for(let k = 0; k < weight.length; k++)
                     {
-                        if(weight[k].weight_low < cart.total_weight && weight[k].weight_high > cart.total_weight)
+                        if(weight[k].weight_low <= cart.total_weight && weight[k].weight_high >= cart.total_weight)
                         {
                             console.log('this is the correct weight', weight)
                             result.push(weight[k]);
@@ -164,7 +162,8 @@ app.post('/shipping-methods', function(request, response) {
                     let price = zones[i].price_based_shipping_rates;
                     for(let h = 0; h < price.length; h++)
                     {
-                        if(parseInt(price[h].min_order_subtotal) < parseInt(cart.total_price) && (parseInt(price[h].max_order_subtotal) > parseInt(cart.total_price) || price[h].max_order_subtotal == null))
+                        console.log('min:', parseFloat(price[h].min_order_subtotal * 100), parseInt(cart.total_price))
+                        if(parseFloat(price[h].min_order_subtotal * 100) < parseFloat(cart.total_price) && (parseFloat(price[h].max_order_subtotal * 100) > parseFloat(cart.total_price) || price[h].max_order_subtotal == null))
                         {
                             result.push(price[h]);
                         }
@@ -172,6 +171,7 @@ app.post('/shipping-methods', function(request, response) {
                 }
             }
         }
+
         response.send(JSON.stringify(result));
     }).catch((err)=> {
         response.send(JSON.stringify(err));
