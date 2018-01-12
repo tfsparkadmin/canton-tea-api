@@ -199,6 +199,39 @@ app.get('/create-checkout', function(request, response) {
     });
 })
 
+app.get('/get/script', (request, response)=> {
+    shopify.scriptTag.list({ limit: 10 }).then((result)=> {
+        response.send(JSON.stringify(result));
+    }).catch((err)=> {
+        response.send(JSON.stringify(err));
+    });
+})
+
+app.get('/add/script', (request, response)=> {
+    var ev = request.query.event;
+    var src = request.query.src;
+    if(ev !== null && src !== null)
+    {
+        shopify.scriptTag.create({
+            event: ev,
+            src: src
+        }).then((result)=> {
+            response.send(JSON.stringify(result));
+        }).catch((err)=> {
+            response.send(JSON.stringify(err));
+        });
+    }
+})
+
+app.get('/remove/script/:id', (request, response)=> {
+    var id = request.params.id;
+    shopify.scriptTag.delete(id).then((result)=> {
+        response.send(JSON.stringify(result));
+    }).catch((err)=> {
+        response.send(JSON.stringify(err));
+    });
+})
+
 app.listen(app.get('port'), function() {
     console.log('Started server on port', app.get('port'));
 });
