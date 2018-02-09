@@ -199,38 +199,72 @@ app.get('/create-checkout', function(request, response) {
     });
 })
 
-app.get('/get/script', (request, response)=> {
-    shopify.scriptTag.list({ limit: 10 }).then((result)=> {
-        response.send(JSON.stringify(result));
-    }).catch((err)=> {
-        response.send(JSON.stringify(err));
-    });
-})
+// app.get('/get/script', (request, response)=> {
+//     shopify.scriptTag.list({ limit: 10 }).then((result)=> {
+//         response.send(JSON.stringify(result));
+//     }).catch((err)=> {
+//         response.send(JSON.stringify(err));
+//     });
+// })
+//
+// app.get('/add/script', (request, response)=> {
+//     var ev = request.query.event;
+//     var src = request.query.src;
+//     if(ev !== null && src !== null)
+//     {
+//         shopify.scriptTag.create({
+//             event: ev,
+//             src: src
+//         }).then((result)=> {
+//             response.send(JSON.stringify(result));
+//         }).catch((err)=> {
+//             response.send(JSON.stringify(err));
+//         });
+//     }
+// })
 
-app.get('/add/script', (request, response)=> {
-    var ev = request.query.event;
-    var src = request.query.src;
-    if(ev !== null && src !== null)
-    {
-        shopify.scriptTag.create({
-            event: ev,
-            src: src
-        }).then((result)=> {
-            response.send(JSON.stringify(result));
-        }).catch((err)=> {
-            response.send(JSON.stringify(err));
-        });
-    }
-})
+// app.get('/remove/script/:id', (request, response)=> {
+//     var id = request.params.id;
+//     shopify.scriptTag.delete(id).then((result)=> {
+//         response.send(JSON.stringify(result));
+//     }).catch((err)=> {
+//         response.send(JSON.stringify(err));
+//     });
+// })
 
-app.get('/remove/script/:id', (request, response)=> {
-    var id = request.params.id;
-    shopify.scriptTag.delete(id).then((result)=> {
-        response.send(JSON.stringify(result));
-    }).catch((err)=> {
-        response.send(JSON.stringify(err));
-    });
-})
+// app.post('/register-customer-phase-1', (request, response)=> {
+//     var params = request.body;
+//     console.log(params)
+//     shopify.customer.create(params).then((result)=> {
+//         response.send(JSON.stringify(params.metafields));
+//     }).catch((err)=> {
+//         response.send(JSON.stringify(err));
+//     });
+// })
+
+// app.post('/register-customer-phase-2/:id', (request, response)=> {
+//     var params = request.body;
+//     var id = request.params.id;
+//
+//     console.log(params)
+//     shopify.customer.update(id, params).then((result)=> {
+//         response.send(JSON.stringify(result));
+//     }).catch((err)=> {
+//         response.send(JSON.stringify(err));
+//     });
+// })
+//
+//     app.post('/test/customer/:id', (request, response)=> {
+//     var params = request.body;
+//     var id = request.params.id;
+//
+//     shopify.customer.update(id, params).then((result)=> {
+//         response.send(JSON.stringify(result));
+//     }).catch((err)=> {
+//         response.send(JSON.stringify(err));
+//     });
+// })
+
 
 app.listen(app.get('port'), function() {
     console.log('Started server on port', app.get('port'));
