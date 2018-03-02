@@ -151,7 +151,7 @@ app.post('/shipping-methods', function(request, response) {
                     let weight = zones[i].weight_based_shipping_rates;
                     for(let k = 0; k < weight.length; k++)
                     {
-                        if(weight[k].weight_low <= cart.total_weight && weight[k].weight_high >= cart.total_weight)
+                        if((weight[k].weight_low * 1000) <= cart.total_weight && (weight[k].weight_high * 1000) >= cart.total_weight)
                         {
                             console.log('this is the correct weight', weight)
                             result.push(weight[k]);
@@ -198,72 +198,6 @@ app.get('/create-checkout', function(request, response) {
         response.send(JSON.stringify(err));
     });
 })
-
-// app.get('/get/script', (request, response)=> {
-//     shopify.scriptTag.list({ limit: 10 }).then((result)=> {
-//         response.send(JSON.stringify(result));
-//     }).catch((err)=> {
-//         response.send(JSON.stringify(err));
-//     });
-// })
-//
-// app.get('/add/script', (request, response)=> {
-//     var ev = request.query.event;
-//     var src = request.query.src;
-//     if(ev !== null && src !== null)
-//     {
-//         shopify.scriptTag.create({
-//             event: ev,
-//             src: src
-//         }).then((result)=> {
-//             response.send(JSON.stringify(result));
-//         }).catch((err)=> {
-//             response.send(JSON.stringify(err));
-//         });
-//     }
-// })
-
-// app.get('/remove/script/:id', (request, response)=> {
-//     var id = request.params.id;
-//     shopify.scriptTag.delete(id).then((result)=> {
-//         response.send(JSON.stringify(result));
-//     }).catch((err)=> {
-//         response.send(JSON.stringify(err));
-//     });
-// })
-
-// app.post('/register-customer-phase-1', (request, response)=> {
-//     var params = request.body;
-//     console.log(params)
-//     shopify.customer.create(params).then((result)=> {
-//         response.send(JSON.stringify(params.metafields));
-//     }).catch((err)=> {
-//         response.send(JSON.stringify(err));
-//     });
-// })
-
-// app.post('/register-customer-phase-2/:id', (request, response)=> {
-//     var params = request.body;
-//     var id = request.params.id;
-//
-//     console.log(params)
-//     shopify.customer.update(id, params).then((result)=> {
-//         response.send(JSON.stringify(result));
-//     }).catch((err)=> {
-//         response.send(JSON.stringify(err));
-//     });
-// })
-//
-//     app.post('/test/customer/:id', (request, response)=> {
-//     var params = request.body;
-//     var id = request.params.id;
-//
-//     shopify.customer.update(id, params).then((result)=> {
-//         response.send(JSON.stringify(result));
-//     }).catch((err)=> {
-//         response.send(JSON.stringify(err));
-//     });
-// })
 
 
 app.listen(app.get('port'), function() {
