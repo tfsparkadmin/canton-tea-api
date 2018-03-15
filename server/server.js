@@ -140,13 +140,21 @@ app.post('/shipping-methods', function(request, response) {
     let countryCode = address.country_code;
 
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
-        let result = [];
+        let shipping_tax = [];
+        let tax_lines = [];
+
         for(let i = 0; i < zones.length; i++)
         {
             for(let j = 0; j < zones[i].countries.length; j++)
             {
                 if(zones[i].countries[j].code == countryCode)
                 {
+                    tax_lines.push({
+                        price: cart.total_price * zones[i].countries[j].tax,
+                        rate: zones[i].countries[j].tax,
+                        title: zones[i].countries[j].tax_name
+                    });
+
                     // Get shipping zone by weight
                     let weight = zones[i].weight_based_shipping_rates;
                     for(let k = 0; k < weight.length; k++)
@@ -154,7 +162,7 @@ app.post('/shipping-methods', function(request, response) {
                         if((weight[k].weight_low * 1000) <= cart.total_weight && (weight[k].weight_high * 1000) >= cart.total_weight)
                         {
                             console.log('this is the correct weight', weight)
-                            result.push(weight[k]);
+                            shipping_tax.push(weight[k]);
                         }
                     }
 
@@ -165,11 +173,17 @@ app.post('/shipping-methods', function(request, response) {
                         console.log('min:', parseFloat(price[h].min_order_subtotal * 100), parseInt(cart.total_price))
                         if(parseFloat(price[h].min_order_subtotal * 100) < parseFloat(cart.total_price) && (parseFloat(price[h].max_order_subtotal * 100) > parseFloat(cart.total_price) || price[h].max_order_subtotal == null))
                         {
-                            result.push(price[h]);
+                            shipping_tax.push(price[h]);
                         }
                     }
                 }
             }
+        }
+
+        // Combine shipping info with VAT tax in one object to send back to store
+        let result = {
+            shipping_tax: shipping_tax,
+            tax_lines: tax_lines
         }
 
         response.send(JSON.stringify(result));
