@@ -149,6 +149,7 @@ app.post('/shipping-methods', function(request, response) {
             {
                 if(zones[i].countries[j].code == countryCode)
                 {
+
                     tax_lines.push({
                         price: cart.total_price * zones[i].countries[j].tax,
                         rate: zones[i].countries[j].tax,
@@ -170,8 +171,13 @@ app.post('/shipping-methods', function(request, response) {
                     let price = zones[i].price_based_shipping_rates;
                     for(let h = 0; h < price.length; h++)
                     {
-                        console.log('min:', parseFloat(price[h].min_order_subtotal * 100), parseInt(cart.total_price))
-                        if(parseFloat(price[h].min_order_subtotal * 100) < parseFloat(cart.total_price) && (parseFloat(price[h].max_order_subtotal * 100) > parseFloat(cart.total_price) || price[h].max_order_subtotal == null))
+
+                        let min = parseFloat(price[h].min_order_subtotal);
+                        let max = (price[h].max_order_subtotal !== null) ? parseFloat(price[h].max_order_subtotal) : 9999999999999;
+
+                        console.log('min:', min, 'max:', max, 'real_total:', parseFloat(cart.total_price))
+
+                        if(min <= parseFloat(cart.total_price) && max > parseFloat(cart.total_price))
                         {
                             shipping_tax.push(price[h]);
                         }
