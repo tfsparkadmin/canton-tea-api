@@ -88,7 +88,7 @@ router.post('/shipping-methods', function(request, response) {
     let cart    = payload.cart;
 
     let countryCode = address.country_code;
-
+    response.json({response: 'ceva'})
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
         let shipping_tax = [];
         let tax_lines = [];
