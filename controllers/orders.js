@@ -97,7 +97,7 @@ router.post('/shipping-methods', function(request, response) {
         {
             for(let j = 0; j < zones[i].countries.length; j++)
             {
-                if(zones[i].countries[j].code == countryCode || zones[i].countries[j].code == '*')
+                if(zones[i].countries[j].code == countryCode || zones[i].countries[j].code === '*')
                 {
                     tax_lines.push({
                         price: cart.total_price * zones[i].countries[j].tax,
