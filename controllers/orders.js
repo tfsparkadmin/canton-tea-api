@@ -1,6 +1,7 @@
 const express = require('express')
 const axios = require('axios')
 const shopify = require('./../src/shopify')
+const { calculateTax } = require('./../src/shipping')
 const router = express.Router()
 
 
@@ -88,57 +89,9 @@ router.post('/shipping-methods', function(request, response) {
     let cart    = payload.cart;
 
     let countryCode = address.country_code;
-    response.json({response: 'ceva'})
+
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
-        let shipping_tax = [];
-        let tax_lines = [];
-
-        for(let i = 0; i < zones.length; i++)
-        {
-            for(let j = 0; j < zones[i].countries.length; j++)
-            {
-                if(zones[i].countries[j].code == countryCode || zones[i].countries[j].code === '*')
-                {
-                    tax_lines.push({
-                        price: cart.total_price * zones[i].countries[j].tax,
-                        rate: zones[i].countries[j].tax,
-                        title: zones[i].countries[j].tax_name
-                    });
-
-                    // Get shipping zone by weight
-                    let weight = zones[i].weight_based_shipping_rates;
-                    for(let k = 0; k < weight.length; k++)
-                    {
-                        if((weight[k].weight_low * 1000) <= cart.total_weight && (weight[k].weight_high * 1000) >= cart.total_weight)
-                        {
-                            shipping_tax.push(weight[k]);
-                        }
-                    }
-
-                    // Get shipping zone by price
-                    let price = zones[i].price_based_shipping_rates;
-                    for(let h = 0; h < price.length; h++)
-                    {
-
-                        let min = parseFloat(price[h].min_order_subtotal);
-                        let max = (price[h].max_order_subtotal !== null) ? parseFloat(price[h].max_order_subtotal) : 9999999999999;
-
-                        if(min <= parseFloat(cart.total_price) && max > parseFloat(cart.total_price))
-                        {
-                            shipping_tax.push(price[h]);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Combine shipping info with VAT tax in one object to send back to store
-        let result = {
-            shipping_tax: shipping_tax,
-            tax_lines: tax_lines
-        }
-
-        response.send(JSON.stringify(result))
+        response.json(calculateTax(zones, cart, countryCode))
     }).catch((err)=> {
         response.send(JSON.stringify(err))
     })

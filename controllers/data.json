@@ -1,0 +1,105 @@
+{
+    "shipping_zones": [
+        {
+            "id": 394736661,
+            "name": "Domestic",
+            "countries": [
+                {
+                    "id": 508316437,
+                    "name": "United Kingdom",
+                    "tax": 0.2,
+                    "code": "GB",
+                    "tax_name": "VAT",
+                    "provinces": []
+                }
+            ],
+            "weight_based_shipping_rates": [
+                {
+                    "id": 23413555239,
+                    "weight_low": 0,
+                    "weight_high": 2,
+                    "name": "48hour Royal Mail Tracked Delivery with Signature",
+                    "price": "3.50",
+                    "shipping_zone_id": 394736661
+                }
+            ],
+            "price_based_shipping_rates": [
+                {
+                    "id": 917241895,
+                    "name": "Next Day Courier Delivery",
+                    "min_order_subtotal": "200.00",
+                    "price": "0.00",
+                    "max_order_subtotal": null,
+                    "shipping_zone_id": 394736661
+                },
+                {
+                    "id": 917209127,
+                    "name": "Next Day Courier Delivery",
+                    "min_order_subtotal": "0.00",
+                    "price": "6.50",
+                    "max_order_subtotal": "199.99",
+                    "shipping_zone_id": 394736661
+                },
+                {
+                    "id": 1042874407,
+                    "name": "Saturday Courier Delivery",
+                    "min_order_subtotal": "0.00",
+                    "price": "20.00",
+                    "max_order_subtotal": null,
+                    "shipping_zone_id": 394736661
+                }
+            ],
+            "carrier_shipping_rate_providers": []
+        },
+        {
+            "id": 69245861931,
+            "name": "International",
+            "countries": [
+                {
+                    "id": 122542784555,
+                    "name": "Rest of World",
+                    "tax": 0,
+                    "code": "*",
+                    "tax_name": "Tax",
+                    "provinces": []
+                }
+            ],
+            "weight_based_shipping_rates": [],
+            "price_based_shipping_rates": [
+                {
+                    "id": 3726147627,
+                    "name": "International delivery: Up to £1000",
+                    "min_order_subtotal": "0.00",
+                    "price": "25.00",
+                    "max_order_subtotal": "1000.00",
+                    "shipping_zone_id": 69245861931
+                },
+                {
+                    "id": 3726180395,
+                    "name": "International delivery: £1000 - £2000",
+                    "min_order_subtotal": "1000.01",
+                    "price": "30.00",
+                    "max_order_subtotal": "2000.00",
+                    "shipping_zone_id": 69245861931
+                },
+                {
+                    "id": 3726213163,
+                    "name": "International delivery: £2000 - £4000",
+                    "min_order_subtotal": "2000.01",
+                    "price": "40.00",
+                    "max_order_subtotal": "4000.00",
+                    "shipping_zone_id": 69245861931
+                },
+                {
+                    "id": 3726245931,
+                    "name": "International delivery: £4000+",
+                    "min_order_subtotal": "4000.01",
+                    "price": "50.00",
+                    "max_order_subtotal": null,
+                    "shipping_zone_id": 69245861931
+                }
+            ],
+            "carrier_shipping_rate_providers": []
+        }
+    ]
+}
