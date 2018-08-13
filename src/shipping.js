@@ -52,7 +52,7 @@ const calculateTax = (data, cart, countryCode)=> {
 
     data.forEach((zone)=> {
         zone.countries.forEach((country)=> {
-            if(country.code === countryCode)
+            if(country.code === countryCode || country.code == "*")
             {
                 tax_lines.push({
                     price: cart.total_price * country.tax,
