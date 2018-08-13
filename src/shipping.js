@@ -50,7 +50,7 @@ const calculateTax = (data, cart, countryCode)=> {
     let shipping_tax = []
     let tax_lines = []
 
-    data.shipping_zones.forEach((zone)=> {
+    data.forEach((zone)=> {
         zone.countries.forEach((country)=> {
             if(country.code === countryCode)
             {
