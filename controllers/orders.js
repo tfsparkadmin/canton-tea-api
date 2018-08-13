@@ -95,8 +95,6 @@ router.post('/shipping-methods', function(request, response) {
     }).catch((err)=> {
         response.send(JSON.stringify(err))
     })
-
-    // response.send(JSON.stringify(payload));
 })
 
 router.get('/get-shipping-zones', function(request, response) {
