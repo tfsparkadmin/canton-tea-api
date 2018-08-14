@@ -12,6 +12,8 @@ const countryCode = 'GB'
 
 router.use('/', require('./orders'))
 
+router.use('/webhooks', require('./webhooks'))
+
 router.use('/test', (request, response)=> {
     response.json(calculateTax(data, cart, countryCode))
 })
