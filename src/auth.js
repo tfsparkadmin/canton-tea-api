@@ -31,16 +31,14 @@ const storeNewUser = (payload, callback)=> {
     return null
 }
 
-const verifyToken = (token)=> {
+const verifyToken = (token, callback)=> {
     User.findOne({ token: token }).then((result)=> {
-        return new new Promise(function(resolve, reject) {
-            if(result)
-            {
-                resolve()
-            } else {
-                reject()
-            }
-        })
+        if(result !== null)
+        {
+            callback(true)
+        } else {
+            callback(false)
+        }
     }).catch((error)=> {
         console.log(error)
     })
