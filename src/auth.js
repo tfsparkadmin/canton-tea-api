@@ -13,7 +13,7 @@ const generateToken = (firstName, lastName, email)=> {
 }
 
 const storeNewUser = (payload, callback)=> {
-    var token = verifyToken(payload.firstName, payload.lastName, payload.email)
+    var token = generateToken(payload.firstName, payload.lastName, payload.email)
     if(token)
     {
         var user = new User({

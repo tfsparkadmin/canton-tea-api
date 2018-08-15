@@ -8,8 +8,13 @@ router.use('/', require('./orders'))
 router.use('/webhooks', require('./webhooks'))
 
 router.use('/test', (request, response)=> {
-    var user = storeNewUser('Mihai', 'Blebea', 'mblebea@tfspark.com')
-    response.json(user)
+    storeNewUser({
+        firstName: 'Mihai',
+        lastName: 'Blebea',
+        email: 'mblebea@tfspark.com'
+    }, (result)=> {
+        response.json(result)
+    })
 })
 
 module.exports = router
