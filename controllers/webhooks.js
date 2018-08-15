@@ -11,6 +11,7 @@ router.post('/customer-created', function(request, response) {
         email: body.email,
         id: body.id
     }, (result)=> {
+        console.log(result)
         storeMetafield({
             key: 'token',
             value: result.token,
