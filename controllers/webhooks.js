@@ -5,7 +5,8 @@ const shopify = require('./../src/shopify')
 const router = express.Router()
 
 router.get('/customer-created', function(request, response) {
-    response.send('found it')
+    console.log(request.body)
+    response.status(200).send()
 })
 
 module.exports = router

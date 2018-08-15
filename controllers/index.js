@@ -1,21 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const { taxByPrice, taxByWeight, calculateTax } = require('./../src/shipping')
-const data = require('./data.json')
+const { storeNewUser } = require('./../src/auth')
 
-const cart = {
-    total_price: 12,
-    total_weight: 400000
-}
-
-const countryCode = 'GB'
 
 router.use('/', require('./orders'))
 
 router.use('/webhooks', require('./webhooks'))
 
 router.use('/test', (request, response)=> {
-    response.json(calculateTax(data, cart, countryCode))
+    var user = storeNewUser('Mihai', 'Blebea', 'mblebea@tfspark.com')
+    response.json(user)
 })
 
 module.exports = router
