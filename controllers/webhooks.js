@@ -3,7 +3,7 @@ const { storeNewUser } = require('./../src/auth')
 
 const router = express.Router()
 
-router.get('/customer-created', function(request, response) {
+router.post('/customer-created', function(request, response) {
     console.log(request.body)
     // Must get first name, last name, email and id of the newly creted user
     // storeNewUser({
