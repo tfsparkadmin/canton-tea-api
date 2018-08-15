@@ -12,11 +12,13 @@ const UserSchema = new connect.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     token: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 })
 

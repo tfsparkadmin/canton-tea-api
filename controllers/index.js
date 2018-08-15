@@ -7,6 +7,8 @@ router.use('/', require('./orders'))
 
 router.use('/webhooks', require('./webhooks'))
 
+router.use('/auth', require('./auth'))
+
 router.get('/test', jwtAuth, (request, response)=> {
     // storeNewUser({
     //     firstName: 'Mihai',
