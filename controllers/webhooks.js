@@ -1,12 +1,19 @@
 const express = require('express')
-const axios = require('axios')
-const shopify = require('./../src/shopify')
+const { storeNewUser } = require('./../src/auth')
 
 const router = express.Router()
 
 router.get('/customer-created', function(request, response) {
     console.log(request.body)
-    response.status(200).send()
+    storeNewUser({
+        firstName: 'Mihai',
+        lastName: 'Blebea',
+        email: 'mblebea@tfspark.com'
+    }, (result)=> {
+        response.status(200).json(result.token)
+    })
 })
+
+
 
 module.exports = router
