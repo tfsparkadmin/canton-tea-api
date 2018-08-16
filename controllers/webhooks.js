@@ -11,7 +11,6 @@ router.post('/customer-created', function(request, response) {
         email: body.email,
         id: body.id
     }, (result)=> {
-        console.log(result)
         storeMetafield({
             key: 'token',
             value: result.token,
@@ -19,10 +18,12 @@ router.post('/customer-created', function(request, response) {
             namespace: 'auth_token',
             owner_resource: 'customer',
             owner_id: body.id
-        }, ()=> {
-            response.status(200).json(result.token)
+        }, (metafields)=> {
+            console.log(metafields)
+            // response.status(200).json(result.token)
         })
     })
+    response.status(200).json(result.token)
 })
 
 

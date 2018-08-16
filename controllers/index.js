@@ -9,7 +9,7 @@ router.use('/webhooks', require('./webhooks'))
 
 router.use('/auth', require('./auth'))
 
-router.get('/test', jwtAuth, (request, response)=> {
+router.get('/test', (request, response)=> {
     // storeNewUser({
     //     firstName: 'Mihai',
     //     lastName: 'Blebea',
