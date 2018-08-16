@@ -1,5 +1,6 @@
 const express = require('express')
 const { storeNewUser } = require('./../src/auth')
+const { storeMetafield } = require('./../src/metafield')
 
 const router = express.Router()
 
