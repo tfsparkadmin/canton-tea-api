@@ -16,14 +16,14 @@ router.post('/customer-created', function(request, response) {
             value: result.token,
             value_type: 'string',
             namespace: 'auth_token',
-            owner_resource: 'customer',
+            owner_resource: 'Customer',
             owner_id: body.id
         }, (metafields)=> {
-            console.log(metafields)
-            // response.status(200).json(result.token)
+            console.log('Metafields are', metafields)
+            response.status(200).json(result.token)
         })
     })
-    response.status(200).json(result.token)
+    // response.status(200).json(result.token)
 })
 
 
