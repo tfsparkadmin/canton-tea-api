@@ -26,7 +26,7 @@ router.post('/customer-created', function(request, response) {
             }).catch((error)=> {
                 response.json(error)
             })
-        , 10000}
+        }, 10000)
         // storeMetafield({
         //     key: 'token',
         //     value: result.token,
