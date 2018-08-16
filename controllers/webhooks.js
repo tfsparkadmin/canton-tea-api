@@ -13,18 +13,20 @@ router.post('/customer-created', function(request, response) {
         email: body.email,
         id: body.id
     }, (result)=> {
-        shopify.metafield.create({
-            key: 'token',
-            value: result.token,
-            value_type: 'string',
-            namespace: 'auth_token',
-            owner_resource: 'Customer',
-            owner_id: body.id
-        }).then((result)=> {
-            response.status(200).json(result)
-        }).catch((error)=> {
-            response.json(error)
-        })
+        setTimeout(()=> {
+            shopify.metafield.create({
+                key: 'token',
+                value: result.token,
+                value_type: 'string',
+                namespace: 'auth_token',
+                owner_resource: 'Customer',
+                owner_id: body.id
+            }).then((result)=> {
+                response.status(200).json(result)
+            }).catch((error)=> {
+                response.json(error)
+            })
+        , 10000)}
         // storeMetafield({
         //     key: 'token',
         //     value: result.token,
