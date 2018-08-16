@@ -19,7 +19,6 @@ router.post('/customer-created', function(request, response) {
             owner_resource: 'Customer',
             owner_id: body.id
         }, (metafields)=> {
-            console.log('Metafields are', metafields)
             response.status(200).json(result.token)
         })
     })
