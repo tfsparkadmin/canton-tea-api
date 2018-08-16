@@ -1,7 +1,7 @@
 const express = require('express')
 const { storeNewUser } = require('./../src/auth')
 const { storeMetafield } = require('./../src/metafield')
-const shopiry = require('./../src/shopify')
+const shopify = require('./../src/shopify')
 
 const router = express.Router()
 
