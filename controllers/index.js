@@ -9,8 +9,6 @@ router.use('/', require('./orders'))
 
 router.use('/webhooks', require('./webhooks'))
 
-router.use('/auth', require('./auth'))
-
 router.get('/test', (request, response)=> {
     // shopify.metafield.create({
     //     key: 'token',
