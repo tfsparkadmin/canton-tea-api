@@ -24,7 +24,7 @@ router.get('/test', (request, response)=> {
     // })
 
     shopify.metafield.list({
-        metafield: { owner_resource: 'customer', owner_id: 263383875623 }
+        metafield: { owner_resource: 'customer', owner_id: 905389801515 }
     }).then((result)=> {
         response.json(result)
     }).catch((error)=> {
