@@ -5,12 +5,12 @@ const { storeNewUser } = require('./../src/auth')
 const router = express.Router()
 
 
-const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
-
 router.get('/users', (request, response)=> {
     shopify.customer.list().then((customers)=> {
         // response.json(customers)
+        let counter = 0
         customers.map((customer)=> {
+            console.log(customer.length)
             storeNewUser({
                 firstName: customer.first_name,
                 lastName: customer.last_name,
@@ -26,7 +26,7 @@ router.get('/users', (request, response)=> {
                     owner_id: customer.id
                 }
                 shopify.metafield.create(obj).then((result)=> {
-                    console.log(result)
+                    console.log(counter + 1)
                 }).catch((error)=> {
                     console.log(error)
                 })

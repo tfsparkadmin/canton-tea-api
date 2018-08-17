@@ -5,16 +5,7 @@ const { calculateTax } = require('./../src/shipping')
 const router = express.Router()
 
 
-const baseUrl = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
-const devUrl = 'https://1ec55068e218efe4d060390e1e065ea8:66a5ab8b4fffeaba915fcb06587fac03@canton-tea.myshopify.com';
-const plainUrl = 'https://canton-tea.myshopify.com';
-
-let url = devUrl
-if(process.env.PORT !== 3000)
-{
-    url = baseUrl
-}
-
+const url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 
 router.post('/shop', function(request, response) {
     axios.get(url + '/admin/shop.json').then((result)=> {
