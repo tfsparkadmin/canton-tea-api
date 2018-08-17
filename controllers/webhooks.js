@@ -14,14 +14,16 @@ router.post('/customer-created', function(request, response) {
         id: body.id
     }, (result)=> {
         setTimeout(()=> {
-            shopify.metafield.create({
+            let obj = {
                 key: 'token',
                 value: result.token,
                 value_type: 'string',
                 namespace: 'auth_token',
                 owner_resource: 'Customer',
                 owner_id: body.id
-            }).then((result)=> {
+            }
+            console.log(obj)
+            shopify.metafield.create(obj).then((result)=> {
                 response.status(200).json(result)
             }).catch((error)=> {
                 response.json(error)
@@ -38,7 +40,8 @@ router.post('/customer-created', function(request, response) {
         //     response.status(200).json(result.token)
         // })
     })
-    // response.status(200).json(result.token)
+    response.status(200).json(result.token)
+    console.log('some stuff')
 })
 
 
