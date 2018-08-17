@@ -9,6 +9,8 @@ router.use('/', require('./orders'))
 
 router.use('/webhooks', require('./webhooks'))
 
+router.use('/generate-tokens', require('./generate-tokens'))
+
 router.get('/test', (request, response)=> {
     // shopify.metafield.create({
     //     key: 'token',
@@ -24,7 +26,7 @@ router.get('/test', (request, response)=> {
     // })
 
     shopify.metafield.list({
-        metafield: { owner_resource: 'customer', owner_id: 912502456363 }
+        metafield: { owner_resource: 'customer', owner_id: 912516874283 }
     }).then((result)=> {
         response.json(result)
     }).catch((error)=> {
