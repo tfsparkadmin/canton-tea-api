@@ -22,11 +22,26 @@ const storeNewUser = (payload, callback)=> {
             email: payload.email,
             token: token
         })
-        user.save().then((result)=> {
+
+        User.update({ email: payload.email }, {
+            $set: {
+                firstName: payload.firstName,
+                lastName: payload.lastName,
+                token: token
+            }
+        },{ upsert: true }).then((result)=> {
             callback(result)
         }).catch((error)=> {
             console.log(error)
         })
+
+
+
+        // user.save().then((result)=> {
+        //     callback(result)
+        // }).catch((error)=> {
+        //     console.log(error)
+        // })
     }
     return null
 }
