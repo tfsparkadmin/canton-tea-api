@@ -1,19 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const { taxByPrice, taxByWeight, calculateTax } = require('./../src/shipping')
-const data = require('./data.json')
+const { storeNewUser, verifyToken } = require('./../src/auth')
+const { jwtAuth } = require('./../middleware/jwt-auth')
+const shopify = require('./../src/shopify')
 
-const cart = {
-    total_price: 12,
-    total_weight: 400000
-}
-
-const countryCode = 'GB'
 
 router.use('/', require('./orders'))
 
-router.use('/test', (request, response)=> {
-    response.json(calculateTax(data, cart, countryCode))
+router.use('/webhooks', require('./webhooks'))
+
+router.use('/generate-tokens', require('./generate-tokens'))
+
+router.get('/test', (request, response)=> {
+    // shopify.metafield.create({
+    //     key: 'token',
+    //     value: 'Serban',
+    //     value_type: 'string',
+    //     namespace: 'auth_token',
+    //     owner_resource: 'customer',
+    //     owner_id: 263383875623
+    // }).then((result)=> {
+    //     response.json(result)
+    // }).catch((error)=> {
+    //     response.json(error)
+    // })
+
+    shopify.metafield.list({
+        metafield: { owner_resource: 'customer', owner_id: 912516874283 }
+    }).then((result)=> {
+        response.json(result)
+    }).catch((error)=> {
+        response.json(error)
+    })
 })
 
 module.exports = router
