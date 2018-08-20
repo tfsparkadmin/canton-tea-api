@@ -10,7 +10,6 @@ router.get('/users', (request, response)=> {
         // response.json(customers)
         let counter = 0
         customers.map((customer)=> {
-            console.log(customer.length)
             storeNewUser({
                 firstName: customer.first_name,
                 lastName: customer.last_name,

@@ -5,7 +5,7 @@ const { jwtAuth } = require('./../middleware/jwt-auth')
 const shopify = require('./../src/shopify')
 
 
-router.use('/', require('./orders'))
+router.use('/', jwtAuth, require('./orders'))
 
 router.use('/webhooks', require('./webhooks'))
 
@@ -26,7 +26,7 @@ router.get('/test', (request, response)=> {
     // })
 
     shopify.metafield.list({
-        metafield: { owner_resource: 'customer', owner_id: 912516874283 }
+        metafield: { owner_resource: 'customer', owner_id: 263383875623 }
     }).then((result)=> {
         response.json(result)
     }).catch((error)=> {
