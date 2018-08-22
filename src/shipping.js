@@ -52,25 +52,42 @@ const calculateTax = (data, cart, countryCode)=> {
 
     data.forEach((zone)=> {
         zone.countries.forEach((country)=> {
-            if(country.code === countryCode || country.code === "*")
+            // if(country.code === countryCode || country.code === "*")
+            // {
+            //     tax_lines.push({
+            //         price: cart.total_price * country.tax,
+            //         rate:  country.tax,
+            //         title: country.tax_name
+            //     })
+            //
+            //     let taxWeight = taxByWeight(zone.weight_based_shipping_rates, cart)
+            //     if(taxWeight.length > 0)
+            //     {
+            //         shipping_tax.push(taxWeight)
+            //     }
+            //
+            //     let taxPrice = taxByPrice(zone.price_based_shipping_rates, cart)
+            //     if(taxPrice.length > 0)
+            //     {
+            //         shipping_tax.push(taxPrice)
+            //     }
+            // }
+            tax_lines.push({
+                price: cart.total_price * country.tax,
+                rate:  country.tax,
+                title: country.tax_name
+            })
+
+            let taxWeight = taxByWeight(zone.weight_based_shipping_rates, cart)
+            if(taxWeight.length > 0)
             {
-                tax_lines.push({
-                    price: cart.total_price * country.tax,
-                    rate:  country.tax,
-                    title: country.tax_name
-                })
+                shipping_tax.push(taxWeight)
+            }
 
-                let taxWeight = taxByWeight(zone.weight_based_shipping_rates, cart)
-                if(taxWeight.length > 0)
-                {
-                    shipping_tax.push(taxWeight)
-                }
-
-                let taxPrice = taxByPrice(zone.price_based_shipping_rates, cart)
-                if(taxPrice.length > 0)
-                {
-                    shipping_tax.push(taxPrice)
-                }
+            let taxPrice = taxByPrice(zone.price_based_shipping_rates, cart)
+            if(taxPrice.length > 0)
+            {
+                shipping_tax.push(taxPrice)
             }
         })
     })
