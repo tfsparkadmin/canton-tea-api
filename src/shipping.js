@@ -51,6 +51,7 @@ const calculateTax = (data, cart, countryCode)=> {
     let tax_lines = []
 
     data.forEach((zone)=> {
+        console.log(zone)
         zone.countries.forEach((country)=> {
             // if(country.code === countryCode || country.code === "*")
             // {
@@ -77,19 +78,20 @@ const calculateTax = (data, cart, countryCode)=> {
                 rate:  country.tax,
                 title: country.tax_name
             })
-
-            let taxWeight = taxByWeight(zone.weight_based_shipping_rates, cart)
-            if(taxWeight.length > 0)
-            {
-                shipping_tax.push(taxWeight)
-            }
-
-            let taxPrice = taxByPrice(zone.price_based_shipping_rates, cart)
-            if(taxPrice.length > 0)
-            {
-                shipping_tax.push(taxPrice)
-            }
         })
+
+        let taxWeight = taxByWeight(zone.weight_based_shipping_rates, cart)
+        if(taxWeight.length > 0)
+        {
+            shipping_tax.push(taxWeight)
+        }
+
+        let taxPrice = taxByPrice(zone.price_based_shipping_rates, cart)
+        if(taxPrice.length > 0)
+        {
+            shipping_tax.push(taxPrice)
+        }
+        // })
     })
 
     return {

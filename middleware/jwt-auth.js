@@ -2,6 +2,7 @@ const { verifyToken } = require('./../src/auth')
 
 const jwtAuth = (request, response, next)=> {
     let authToken = request.query.auth_token
+
     if(authToken)
     {
         verifyToken(authToken, (result)=> {

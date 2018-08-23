@@ -13,7 +13,6 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use('/public', express.static('public'))
 
-
 app.use(require('./controllers'))
 
 app.listen(app.get('port'), function() {
