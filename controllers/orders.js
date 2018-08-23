@@ -3,7 +3,7 @@ const axios = require('axios')
 const shopify = require('./../src/shopify')
 const { calculateTax } = require('./../src/shipping')
 const router = express.Router()
-
+const { jwtAuth } = require('./../middleware/jwt-auth')
 
 const url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
 
@@ -60,7 +60,7 @@ router.post('/cart', function(request, response) {
 })
 
 // POST create new order
-router.post('/credit-order', function(request, response) {
+router.post('/credit-order', jwtAuth, function(request, response) {
     let payload = request.body;
     axios.post(url + '/admin/orders.json', payload).then((result)=> {
         response.setHeader('Content-Type', 'application/json')
@@ -74,7 +74,7 @@ router.post('/credit-order', function(request, response) {
     })
 })
 
-router.post('/shipping-methods', function(request, response) {
+router.post('/shipping-methods', jwtAuth, function(request, response) {
     let payload = request.body;
     let address = payload.address;
     let cart    = payload.cart;
