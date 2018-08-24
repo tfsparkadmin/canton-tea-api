@@ -46,12 +46,18 @@ const taxByWeight = (zones, cart)=> {
     })
 }
 
+const flatten = (array)=> {
+    return array.reduce((flat, toFlatten)=> {
+        return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+    }, []);
+}
+
 const calculateTax = (data, cart, countryCode)=> {
     let shipping_tax = []
     let tax_lines = []
 
     data.forEach((zone)=> {
-        
+
         var country = zone.countries[0]
         tax_lines.push({
             price: cart.total_price * country.tax,
@@ -70,12 +76,11 @@ const calculateTax = (data, cart, countryCode)=> {
         {
             shipping_tax.push(taxPrice)
         }
-        // })
     })
 
     return {
-        shipping_tax,
-        tax_lines
+        shipping_tax: flatten(shipping_tax),
+        tax_lines: tax_lines
     }
 }
 
