@@ -24,7 +24,7 @@ router.get('/test', (request, response)=> {
     //     response.json(error)
     // })
 
-
+    response.send('Works')
     shopify.shippingZone.list({ limit: 5 }).then((zones)=> {
         response.json(zones)
     }).catch((err)=> {
