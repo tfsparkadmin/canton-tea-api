@@ -10,4 +10,8 @@ router.use('/webhooks', require('./webhooks'))
 
 router.use('/generate-tokens', require('./generate-tokens'))
 
+router.get('/test', (request, response)=> {
+    response.send('It works')
+})
+
 module.exports = router
