@@ -49,15 +49,15 @@ router.post('/products', function(request, response) {
     })
 })
 
-router.post('/cart', function(request, response) {
-    axios.get(devUrl + '/cart.js').then((result)=> {
-        console.log(result.data)
-        response.send('ok');
-    }).catch((err)=> {
-        console.log(err)
-        response.send(err)
-    })
-})
+// router.post('/cart', function(request, response) {
+//     axios.get(devUrl + '/cart.js').then((result)=> {
+//         console.log(result.data)
+//         response.send('ok');
+//     }).catch((err)=> {
+//         console.log(err)
+//         response.send(err)
+//     })
+// })
 
 // POST create new order
 router.post('/credit-order', jwtAuth, function(request, response) {
@@ -74,7 +74,7 @@ router.post('/credit-order', jwtAuth, function(request, response) {
     })
 })
 
-router.post('/shipping-methods', jwtAuth, function(request, response) {
+router.post('/shipping-methods', function(request, response) {
     let payload = request.body;
     let address = payload.address;
     let cart    = payload.cart;
