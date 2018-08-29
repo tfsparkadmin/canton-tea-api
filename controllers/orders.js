@@ -49,18 +49,18 @@ router.post('/products', function(request, response) {
     })
 })
 
-// router.post('/cart', function(request, response) {
-//     axios.get(devUrl + '/cart.js').then((result)=> {
-//         console.log(result.data)
-//         response.send('ok');
-//     }).catch((err)=> {
-//         console.log(err)
-//         response.send(err)
-//     })
-// })
+router.post('/cart', function(request, response) {
+    axios.get(devUrl + '/cart.js').then((result)=> {
+        console.log(result.data)
+        response.send('ok');
+    }).catch((err)=> {
+        console.log(err)
+        response.send(err)
+    })
+})
 
 // POST create new order
-router.post('/credit-order', jwtAuth, function(request, response) {
+router.post('/credit-order', function(request, response) {
     let payload = request.body;
     axios.post(url + '/admin/orders.json', payload).then((result)=> {
         response.setHeader('Content-Type', 'application/json')
