@@ -1,4 +1,4 @@
-const connect = require('./mongoose')
+const connect = require('./mongoose');
 
 
 const UserSchema = new connect.Schema({
@@ -20,8 +20,8 @@ const UserSchema = new connect.Schema({
         required: true,
         unique: true
     }
-})
+});
 
-const User = connect.model('User', UserSchema)
+const User = connect.model('User', UserSchema);
 
-module.exports = User
+module.exports = User;
