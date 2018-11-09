@@ -1,14 +1,18 @@
 const express = require('express');
-const axios = require('axios');
+const Axios = require('axios');
 const shopify = require('./../src/shopify');
 const { calculateTax } = require('./../src/shipping');
 const router = express.Router();
 const { jwtAuth } = require('./../middleware/jwt-auth');
 
-const url = 'https://' + process.env.SHOPIFY_API_KEY + ':' + process.env.SHOPIFY_PASSWORD + '@' + process.env.SHOPIFY_SHOP_NAME + '.myshopify.com';
+// const url = ;
+
+const axios = Axios.create({
+    baseURL: `https://${process.env.SHOPIFY_API_KEY}:${process.env.SHOPIFY_PASSWORD}@${process.env.SHOPIFY_SHOP_NAME}.myshopify.com`
+});
 
 router.post('/shop', function (request, response) {
-    axios.get(url + '/admin/shop.json').then((result) => {
+    axios.get('/admin/shop.json').then((result) => {
         response.send(JSON.stringify(result.data.shop));
     }).catch((err) => {
         console.log(err);
@@ -16,10 +20,10 @@ router.post('/shop', function (request, response) {
 });
 
 router.post('/collections', function (request, response) {
-    axios.get(url + '/admin/custom_collections.json').then((result) => {
+    axios.get('/admin/custom_collections.json').then((result) => {
         // response.send(JSON.stringify(result.data.custom_collections));
         let customCol = result.data.custom_collections;
-        axios.get(url + '/admin/smart_collections.json').then((res) => {
+        axios.get('/admin/smart_collections.json').then((res) => {
             let smartCol = res.data.smart_collections;
             for (let i = 0; i < customCol.length; i++) {
                 smartCol.push(customCol[i]);
@@ -40,16 +44,17 @@ router.post('/collections', function (request, response) {
 
 router.post('/products', function (request, response) {
     let id = request.body.id;
-    axios.get(url + '/admin/products.json?collection_id=' + id).then((result) => {
-        response.send(result.data.products);
-    }).catch((err) => {
-        console.log(err);
-        response.send(err);
-    });
+    axios.get('/admin/products.json?collection_id=' + id)
+        .then((result) => {
+            response.send(result.data.products);
+        }).catch((err) => {
+            console.log(err);
+            response.send(err);
+        });
 });
 
 router.post('/cart', function (request, response) {
-    axios.get(devUrl + '/cart.js').then((result) => {
+    axios.get('/cart.js').then((result) => {
         console.log(result.data);
         response.send('ok');
     }).catch((err) => {
@@ -61,7 +66,7 @@ router.post('/cart', function (request, response) {
 // POST create new order
 router.post('/credit-order', function (request, response) {
     let payload = request.body;
-    axios.post(url + '/admin/orders.json', payload).then((result) => {
+    axios.post('/admin/orders.json', payload).then((result) => {
         response.setHeader('Content-Type', 'application/json');
         response.send(JSON.stringify({
             response: 'ok',
